@@ -1,0 +1,22 @@
+---
+metadata:
+  repository: "galaxy-asdf"
+
+policies:
+  - type: conventionalCommit
+    spec:
+      types:
+        - "chore"
+        - "docs"
+        - "feat"
+        - "fix"
+        - "perf"
+        - "refactor"
+        - "style"
+        - "test"
+      scopes:
+        - "*"
+        - "default"
+        - "task"
+        - "template"
+        - "test"

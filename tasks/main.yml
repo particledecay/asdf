@@ -1,0 +1,34 @@
+---
+- name: Set asdf install location
+  set_fact:
+    asdf_path: "{{ ansible_env.HOME }}/.asdf"
+  when: ansible_system == "Linux"
+
+- name: Clone asdf to local dir
+  git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: "{{ asdf_path }}"
+    version: "{{ asdf_version }}"
+    update: no
+  when: ansible_system == "Linux"
+
+- name: Install asdf
+  homebrew:
+    name: asdf
+    state: present
+  when: ansible_system == "Darwin"
+
+- name: Detect brew install path
+  command: brew --prefix asdf
+  register: asdf_brew
+  when: ansible_system == "Darwin"
+
+- name: Set asdf install location
+  set_fact:
+    asdf_path: "{{ asdf_brew.stdout }}"
+  when: ansible_system == "Darwin"
+
+- name: Install asdf plugins
+  shell: "source {{ asdf_path }}/asdf.sh; asdf plugin-add {{ item.name }} {{ item.url }}"
+  with_items: "{{ asdf_plugins }}"
+  when: asdf_plugins | length > 0

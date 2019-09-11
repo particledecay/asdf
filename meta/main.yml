@@ -1,0 +1,5 @@
+---
+galaxy_info:
+  role_name: galaxy-asdf
+  author: Platform Services Engineering Team
+  description: An Ansible Galaxy role for installing [asdf version manager](https://github.com/asdf-vm/asdf)
