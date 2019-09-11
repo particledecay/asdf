@@ -3,3 +3,23 @@ galaxy_info:
   role_name: galaxy-asdf
   author: Platform Services Engineering Team
   description: An Ansible Galaxy role for installing [asdf version manager](https://github.com/asdf-vm/asdf)
+  license: MIT
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - all
+    - name: MacOSX
+      versions:
+        - 10.11
+        - 10.12
+        - 10.13
+        - 10.14

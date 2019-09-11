@@ -1,0 +1,12 @@
+- name: Install asdf plugins
+  shell: "source {{ asdf_path }}/asdf.sh; asdf plugin-add {{ item.name }} {{ item.repository }}"
+
+- name: Install asdf plugin {{ item.name }} version {{ version }}
+  shell: "source {{ asdf_path }}/asdf.sh; asdf install {{ item.name }} {{ version }}"
+  with_items: "{{ item.versions }}"
+  loop_control:
+    loop_var: version
+
+- name: Set global version
+  shell: "source {{ asdf_path }}/asdf.sh; asdf global {{ item.name }} {{ item.global }}"
+  when: item.global is defined

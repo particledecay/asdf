@@ -28,7 +28,6 @@
     asdf_path: "{{ asdf_brew.stdout }}"
   when: ansible_system == "Darwin"
 
-- name: Install asdf plugins
-  shell: "source {{ asdf_path }}/asdf.sh; asdf plugin-add {{ item.name }} {{ item.url }}"
+- include_tasks: plugins.yml
   with_items: "{{ asdf_plugins }}"
   when: asdf_plugins | length > 0
