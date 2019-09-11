@@ -4,7 +4,7 @@ galaxy_info:
   author: Joey Espinosa <jlouis.espinosa@gmail.com>
   description: An Ansible Galaxy role for installing [asdf version manager](https://github.com/asdf-vm/asdf)
   license: MIT
-  min_ansible_version: 2.4
+  min_ansible_version: 2.6
 
   platforms:
     - name: Ubuntu

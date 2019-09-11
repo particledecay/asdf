@@ -31,6 +31,30 @@
   changed_when: false
   when: ansible_system == "Darwin"
 
+- name: Create bash asdf source script
+  template:
+    src: "asdf.sh.j2"
+    dest: "/etc/profile.d/asdf.sh"
+    owner: root
+    group: root
+    mode: 0755
+  become: yes
+
+- name: Detect zsh profile file
+  set_fact:
+    zprofile_path: "{{ item }}"
+  with_first_found:
+    - /etc/zprofile
+    - /etc/zsh/zprofile
+  changed_when: false
+
+- name: Source asdf upon zsh launch
+  lineinfile:
+    path: "{{ zprofile_path }}"
+    line: '[ -x "$HOME/.asdf/asdf.sh" ] && source "$HOME/.asdf/asdf.sh"'
+  become: yes
+  when: zprofile_path is defined
+
 - include_tasks: plugins.yml
   with_items: "{{ asdf_plugins }}"
   when: asdf_plugins | length > 0
