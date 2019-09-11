@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: asdf
   author: Joey Espinosa <jlouis.espinosa@gmail.com>
-  description: An Ansible Galaxy role for installing [asdf version manager](https://github.com/asdf-vm/asdf)
+  description: Installing asdf and asdf plugins on Linux and MacOS
   license: MIT
   min_ansible_version: 2.6
 
