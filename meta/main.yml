@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: asdf
   author: Joey Espinosa <jlouis.espinosa@gmail.com>
-  description: Installing asdf and asdf plugins on Linux and MacOS
+  description: Installing asdf and asdf plugins on Linux or MacOS
   license: MIT
   min_ansible_version: 2.6
 
