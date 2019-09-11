@@ -23,3 +23,6 @@ galaxy_info:
         - 10.12
         - 10.13
         - 10.14
+
+  galaxy_tags:
+    - asdf
