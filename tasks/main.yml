@@ -2,6 +2,7 @@
 - name: Set asdf install location
   set_fact:
     asdf_path: "{{ ansible_env.HOME }}/.asdf"
+  changed_when: false
   when: ansible_system == "Linux"
 
 - name: Clone asdf to local dir
@@ -21,11 +22,13 @@
 - name: Detect brew install path
   command: brew --prefix asdf
   register: asdf_brew
+  changed_when: false
   when: ansible_system == "Darwin"
 
 - name: Set asdf install location
   set_fact:
     asdf_path: "{{ asdf_brew.stdout }}"
+  changed_when: false
   when: ansible_system == "Darwin"
 
 - include_tasks: plugins.yml
