@@ -57,5 +57,13 @@
   when: zprofile_path is defined
 
 - include_tasks: plugins.yml
-  with_items: "{{ asdf_plugins }}"
+  with_subelements:
+    - "{{ asdf_plugins }}"
+    - "versions"
   when: asdf_plugins | length > 0
+
+- name: Set global version for {{ item.name }}
+  shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf global {{ item.name }} {{ item.global }}'
+  when: item.global is defined
+  changed_when: false
+  with_items: "{{ asdf_plugins }}"

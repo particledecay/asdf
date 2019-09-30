@@ -1,22 +1,14 @@
-- name: Check if {{ item.name }} plugin already exists
+- name: Check if {{ item.0.name }} plugin already exists
   stat:
-    path: "{{ asdf_path }}/plugins/{{ item.name }}"
+    path: "{{ asdf_path }}/plugins/{{ item.0.name }}"
   register: plugin_path
   changed_when: false
 
-- name: Install asdf {{ item.name }} plugin
-  shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf plugin-add {{ item.name }} {{ item.repository | default("") }}'
+- name: Install asdf {{ item.0.name }} plugin
+  shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf plugin-add {{ item.0.name }} {{ item.0.repository | default("") }}'
   when: not plugin_path.stat.exists
 
-- name: Install asdf plugin {{ item.name }} version {{ version }}
-  shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf install {{ item.name }} {{ version }}'
-  with_items: "{{ item.versions }}"
-  loop_control:
-    loop_var: version
+- name: Install asdf plugin {{ item.0.name }} version {{ item.1 }}
+  shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf install {{ item.0.name }} {{ item.1 }}'
   register: plugin_install
   changed_when: plugin_install.stdout is not search("is already installed")
-
-- name: Set global version
-  shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf global {{ item.name }} {{ item.global }}'
-  when: item.global is defined
-  changed_when: false
