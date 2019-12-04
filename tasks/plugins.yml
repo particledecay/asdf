@@ -7,6 +7,8 @@
 - name: Install asdf {{ item.0.name }} plugin
   shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf plugin-add {{ item.0.name }} {{ item.0.repository | default("") }}'
   when: not plugin_path.stat.exists
+  register: plugin_exec
+  failed_when: plugin_exec.rc != 0 and plugin_exec.rc != 2
 
 - name: Install asdf plugin {{ item.0.name }} version {{ item.1 }}
   shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf install {{ item.0.name }} {{ item.1 }}'
